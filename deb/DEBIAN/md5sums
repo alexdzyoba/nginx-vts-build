@@ -1,0 +1,4 @@
+f18e6227110ede6b7a653c5e5635008e  lib/systemd/system/nginx.service
+73e39b8a71b0ec656bad53e84a878730  usr/share/man/man8/nginx.8.gz
+f3b9f713c4d6f3355e25fb2be47d6ad1  usr/share/nginx/html/50x.html
+e3eb0a1df437f3f97a64aca5952c8ea0  usr/share/nginx/html/index.html

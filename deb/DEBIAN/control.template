@@ -1,0 +1,12 @@
+Package: nginx-vts
+Version: {{ VERSION }}
+Architecture: amd64
+Maintainer: Alex Dzyoba <alex@dzyoba.com>
+Depends: init-system-helpers (>= 1.18~), libc6 (>= 2.17), libpcre3, libssl1.1 (>= 1.1.0), zlib1g (>= 1:1.1.4), lsb-base (>= 3.0-6), adduser
+Conflicts: nginx, nginx-common, nginx-core
+Replaces: nginx, nginx-common, nginx-core
+Provides: httpd
+Section: httpd
+Priority: optional
+Homepage: https://github.com/alexdzyoba/nginx-vts-build
+Description: nginx distribution with VTS module
