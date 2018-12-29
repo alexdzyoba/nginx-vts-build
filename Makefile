@@ -5,7 +5,7 @@ CONTAINER := nginx-vts-builder
 
 debian9: image
 	docker run -it --name $(CONTAINER)  $(IMAGE):debian-9
-	docker cp $(CONTAINER):/build/*.deb .
+	docker cp $(CONTAINER):/output .
 	docker rm $(CONTAINER)
 
 image: Dockerfile.debian9

@@ -9,6 +9,7 @@ builddir='/build'
 nginx_dir="${builddir}/nginx"
 vts_dir="${builddir}/vts"
 pkg_dir="${builddir}/deb"
+output_dir='/output'
 
 nginx_release='1.15.7'
 nginx_tag="release-${nginx_release}"
@@ -76,4 +77,6 @@ cp "${nginx_dir}/objs/nginx" "${pkg_dir}/usr/sbin/nginx"
 cd /build
 sed "s/{{ VERSION }}/${nginx_release}-${vts_release}/" ${pkg_dir}/DEBIAN/control.template > ${pkg_dir}/DEBIAN/control
 
-dpkg-deb -b ${pkg_dir} nginx-vts_${nginx_release}-${vts_release}_amd64.deb
+mkdir -p "${output_dir}"
+dpkg-deb -b ${pkg_dir} "${output_dir}/nginx-vts_${nginx_release}-${vts_release}_amd64.deb"
+
