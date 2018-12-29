@@ -8,7 +8,7 @@ vts_repo='https://github.com/vozlt/nginx-module-vts.git'
 builddir='/build'
 nginx_dir="${builddir}/nginx"
 vts_dir="${builddir}/vts"
-pkg_dir="${builddir}/pkg"
+pkg_dir="${builddir}/deb"
 
 nginx_release='1.15.7'
 nginx_tag="release-${nginx_release}"
@@ -70,31 +70,11 @@ cd ${nginx_dir}
 
 make -j 4
 
-mkdir -p "${pkg_dir}"
-cp "${nginx_dir}/objs/nginx" "${pkg_dir}/nginx-vts"
+mkdir -p "${pkg_dir}/usr/sbin"
+cp "${nginx_dir}/objs/nginx" "${pkg_dir}/usr/sbin/nginx"
 
-# Depend on nginx for now to obtain default configs (/etc/nginx)
-fpm \
-    --name nginx-vts \
-    --version ${nginx_release}-${vts_release} \
-    --output-type deb \
-    --input-type dir \
-    --package ${pkg_dir} \
-    --force \
-    --maintainer 'Alex Dzyoba <alex@dzyoba.com>' \
-    --depends 'init-system-helpers (>= 1.18~)' \
-    --depends 'libc6 (>= 2.17)' \
-    --depends 'libpcre3' \
-    --depends 'libssl1.1 (>= 1.1.0)' \
-    --depends 'zlib1g (>= 1:1.1.4)' \
-    --depends 'lsb-base (>= 3.0-6)' \
-    --depends 'nginx' \
-    --url 'https://github.com/alexdzyoba/nginx-vts-build' \
-    --license 'BSD' \
-    --vendor '' \
-    --architecture 'amd64' \
-    --category 'httpd' \
-    --deb-priority 'optional' \
-    --description  "nginx distribution built with VTS module" \
-    ${pkg_dir}/=/usr/sbin/
+cd /build
+sed "s/{{ VERSION }}/${nginx_release}-${vts_release}/" ${pkg_dir}/DEBIAN/control.template > ${pkg_dir}/DEBIAN/control
 
+chown -R root:root ${pkg_dir}
+dpkg-deb -b ${pkg_dir} nginx-vts_${nginx_release}-${vts_release}_amd64.deb
