@@ -76,5 +76,4 @@ cp "${nginx_dir}/objs/nginx" "${pkg_dir}/usr/sbin/nginx"
 cd /build
 sed "s/{{ VERSION }}/${nginx_release}-${vts_release}/" ${pkg_dir}/DEBIAN/control.template > ${pkg_dir}/DEBIAN/control
 
-chown -R root:root ${pkg_dir}
 dpkg-deb -b ${pkg_dir} nginx-vts_${nginx_release}-${vts_release}_amd64.deb
