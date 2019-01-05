@@ -30,7 +30,7 @@ workflows:
   version: 2
   release:
     jobs:
-      - build
+      - build:
           filters:
             tags:
               only: /.*/
