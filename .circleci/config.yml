@@ -1,0 +1,43 @@
+---
+version: 2
+jobs:
+  build:
+    docker:
+      - image: alexdzyoba/nginx-vts-builder:debian-9
+    working_directory: /build
+    steps:
+      - run:
+          name: "Build the nginx-vts package"
+          command: /build/build.sh
+      - persist_to_workspace:
+          name: "Store output in the CI workspace for upload to Github Releases"
+          root: /
+          paths:
+            - output
+
+  release:
+    docker:
+      - image: cibuilds/github:0.12
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -replace ${CIRCLE_TAG} ./artifacts/output/
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - build
+          filters:
+            tags:
+              only: /.*/
+      - release:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /.*/
+
