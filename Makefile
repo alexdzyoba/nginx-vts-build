@@ -1,4 +1,4 @@
-.PHONY: debian9 image
+.PHONY: debian9 image publicimage
 
 IMAGE := nginx-vts-builder
 CONTAINER := nginx-vts-builder
