@@ -22,6 +22,14 @@ jobs:
       - attach_workspace:
           at: ./artifacts
       - run:
+          name: Print variables
+          command: |
+            echo GITHUB_TOKEN=${GITHUB_TOKEN} CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} CIRCLE_PROJECT_REPONAME=${CIRCLE_PROJECT_REPONAME} CIRCLE_TAG=${CIRCLE_TAG}
+      - run:
+          name: Show workspace content
+          command: |
+            ls -laR ./artifacts
+      - run:
           name: "Publish Release on GitHub"
           command: |
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -replace ${CIRCLE_TAG} ./artifacts/output/
