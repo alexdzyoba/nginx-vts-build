@@ -32,12 +32,16 @@ workflows:
     jobs:
       - build:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /.*/
       - release:
           requires:
             - build
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /.*/
 
