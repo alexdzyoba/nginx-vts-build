@@ -1,4 +1,4 @@
-FROM debian:9-slim
+FROM debian:11-slim
 
 RUN mkdir -p /build && \
     apt-get update && \
