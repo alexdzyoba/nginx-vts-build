@@ -13,4 +13,4 @@ image: Dockerfile.debian9
 
 publicimage:
 	docker build -t alexdzyoba/$(IMAGE):debian-11 -f Dockerfile.debian11 .
-  docker push alexdzyoba/$(IMAGE):debian-11
+	docker push alexdzyoba/$(IMAGE):debian-11
